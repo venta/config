@@ -1,8 +1,8 @@
 <?php
 
-use Venta\Config\Contract\Config;
-use Venta\Config\Factory;
 use PHPUnit\Framework\TestCase;
+use Venta\Config\ConfigFactory;
+use Venta\Contracts\Config\Config;
 
 class FactoryTest extends TestCase
 {
@@ -12,7 +12,7 @@ class FactoryTest extends TestCase
      */
     public function canCreateFromJson()
     {
-        $factory = new Factory();
+        $factory = new ConfigFactory();
         $config = $factory->fromFile(__DIR__ . '/config.json');
 
         $this->assertInstanceOf(Config::class, $config);
@@ -24,7 +24,7 @@ class FactoryTest extends TestCase
      */
     public function canIncludePhpFile()
     {
-        $factory = new Factory();
+        $factory = new ConfigFactory();
         $config = $factory->fromFile(__DIR__ . '/config.php');
 
         $this->assertInstanceOf(Config::class, $config);
@@ -37,7 +37,7 @@ class FactoryTest extends TestCase
      */
     public function throwsExceptionOnInvalidFile()
     {
-        $factory = new Factory();
+        $factory = new ConfigFactory();
         $config = $factory->fromFile(__DIR__ . '/non_existing_file');
     }
 
@@ -47,7 +47,7 @@ class FactoryTest extends TestCase
      */
     public function throwsExceptionOnUnknownConfigFormat()
     {
-        $factory = new Factory();
+        $factory = new ConfigFactory();
         $config = $factory->fromFile(__DIR__ . '/stub.qwerty');
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-use Venta\Config\Contract\Config;
-use Venta\Config\Parser\Json;
 use PHPUnit\Framework\TestCase;
+use Venta\Config\Parser\Json;
+use Venta\Contracts\Config\Config;
 
 class JsonParserTest extends TestCase
 {

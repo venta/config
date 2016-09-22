@@ -3,8 +3,8 @@
 namespace Venta\Config\Parser;
 
 use Venta\Config\Config;
-use Venta\Config\Contract\Config as ConfigContract;
-use Venta\Config\Contract\Parser;
+use Venta\Contracts\Config\Config as ConfigContract;
+use Venta\Contracts\Config\Parser;
 
 /**
  * Class Json

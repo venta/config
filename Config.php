@@ -2,9 +2,9 @@
 
 namespace Venta\Config;
 
-use Venta\Config\Contract\Config as ConfigContract;
 use ArrayIterator;
 use RuntimeException;
+use Venta\Contracts\Config\Config as ConfigContract;
 
 /**
  * Class Config

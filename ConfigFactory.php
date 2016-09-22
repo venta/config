@@ -2,16 +2,16 @@
 
 namespace Venta\Config;
 
-use Venta\Config\Contract\Config as ConfigContract;
-use Venta\Config\Contract\Factory as FactoryContract;
 use Venta\Config\Parser\Json;
+use Venta\Contracts\Config\Config as ConfigContract;
+use Venta\Contracts\Config\ConfigFactory as ConfigFactoryContract;
 
 /**
- * Class Factory
+ * Class ConfigFactory
  *
  * @package Venta\Config
  */
-class Factory implements FactoryContract
+class ConfigFactory implements ConfigFactoryContract
 {
 
     /**
