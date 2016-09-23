@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Venta\Config\ConfigFactory;
 use Venta\Contracts\Config\Config;
 
-class FactoryTest extends TestCase
+class ConfigFactoryTest extends TestCase
 {
 
     /**

@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Venta\Config\Parser\Json;
 use Venta\Contracts\Config\Config;
 
-class JsonParserTest extends TestCase
+class ParserJsonTest extends TestCase
 {
 
     /**
