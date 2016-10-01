@@ -17,7 +17,7 @@ class ConfigFactory implements ConfigFactoryContract
     /**
      * @inheritDoc
      */
-    public function fromFile($filename): ConfigContract
+    public function createFromFile($filename): ConfigContract
     {
         if (!is_file($filename) || !is_readable($filename)) {
             throw new \InvalidArgumentException(sprintf('File "%s" does not exist or is not readable', $filename));

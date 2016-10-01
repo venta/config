@@ -13,7 +13,7 @@ class ConfigFactoryTest extends TestCase
     public function canCreateFromJson()
     {
         $factory = new ConfigFactory();
-        $config = $factory->fromFile(__DIR__ . '/config.json');
+        $config = $factory->createFromFile(__DIR__ . '/config.json');
 
         $this->assertInstanceOf(Config::class, $config);
         $this->assertSame('value', $config->get('key'));
@@ -25,7 +25,7 @@ class ConfigFactoryTest extends TestCase
     public function canIncludePhpFile()
     {
         $factory = new ConfigFactory();
-        $config = $factory->fromFile(__DIR__ . '/config.php');
+        $config = $factory->createFromFile(__DIR__ . '/config.php');
 
         $this->assertInstanceOf(Config::class, $config);
         $this->assertSame('value', $config->get('key'));
@@ -38,7 +38,7 @@ class ConfigFactoryTest extends TestCase
     public function throwsExceptionOnInvalidFile()
     {
         $factory = new ConfigFactory();
-        $config = $factory->fromFile(__DIR__ . '/non_existing_file');
+        $config = $factory->createFromFile(__DIR__ . '/non_existing_file');
     }
 
     /**
@@ -48,7 +48,7 @@ class ConfigFactoryTest extends TestCase
     public function throwsExceptionOnUnknownConfigFormat()
     {
         $factory = new ConfigFactory();
-        $config = $factory->fromFile(__DIR__ . '/stub.qwerty');
+        $config = $factory->createFromFile(__DIR__ . '/stub.qwerty');
     }
 
 }
