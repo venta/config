@@ -1,0 +1,4 @@
+suites:
+    config_suite:
+        namespace: Venta\Config
+        psr4_prefix: Venta\Config
