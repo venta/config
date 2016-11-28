@@ -6,16 +6,16 @@ use PHPUnit\Framework\TestCase;
 class ConfigTest extends TestCase
 {
 
-    /**
-     * @test
-     */
-    public function canCheckIfHasKey()
-    {
-        $config = new Config(['key' => 'value']);
-
-        $this->assertTrue($config->has('key'));
-        $this->assertFalse($config->has('other key'));
-    }
+//    /**
+//     * @test
+//     */
+//    public function canCheckIfHasKey()
+//    {
+//        $config = new Config(['key' => 'value']);
+//
+//        $this->assertTrue($config->has('key'));
+//        $this->assertFalse($config->has('other key'));
+//    }
 
     /**
      * @test
@@ -65,48 +65,27 @@ class ConfigTest extends TestCase
         $this->assertSame('qwerty', $config->get('another')->get('name'));
     }
 
-    /**
-     * @test
-     */
-    public function canConvertToArray()
-    {
-        $array = ['key' => 'value'];
-        $config = new Config($array);
-
-        $this->assertSame($array, $config->toArray());
-    }
 
     /**
      * @test
      */
-    public function canConvertToJson()
-    {
-        $array = ['key' => 'value'];
-        $config = new Config($array);
-
-        $this->assertSame(json_encode($array), json_encode($config));
-    }
-
-    /**
-     * @test
-     */
-    public function canCount()
-    {
-        $config = new Config(['key' => 'value']);
-
-        $this->assertCount(1, $config);
-    }
+//    public function canCount()
+//    {
+//        $config = new Config(['key' => 'value']);
+//
+//        $this->assertCount(1, $config);
+//    }
 
     /**
      * @test
      */
-    public function canGetSetValues()
-    {
-        $config = new Config();
-        $config->set('key', 'value');
-
-        $this->assertSame('value', $config->get('key'));
-    }
+//    public function canGetSetValues()
+//    {
+//        $config = new Config();
+//        $config->set('key', 'value');
+//
+//        $this->assertSame('value', $config->get('key'));
+//    }
 
     /**
      * @test
@@ -175,31 +154,31 @@ class ConfigTest extends TestCase
     /**
      * @test
      */
-    public function canLockForModification()
-    {
-        $config = new Config();
-        $this->assertFalse($config->isLocked());
-        $config->lock();
-        $this->assertTrue($config->isLocked());
-    }
+//    public function canLockForModification()
+//    {
+//        $config = new Config();
+//        $this->assertFalse($config->isLocked());
+//        $config->lock();
+//        $this->assertTrue($config->isLocked());
+//    }
 
     /**
      * @test
      */
-    public function canLockRecursively()
-    {
-        $array = [
-            'key' => 'value',
-            'another' => [
-                'name' => 'qwerty',
-            ],
-        ];
-        $config = new Config($array);
-        $config->lock();
-
-        $this->assertTrue($config->isLocked());
-        $this->assertTrue($config->get('another')->isLocked());
-    }
+//    public function canLockRecursively()
+//    {
+//        $array = [
+//            'key' => 'value',
+//            'another' => [
+//                'name' => 'qwerty',
+//            ],
+//        ];
+//        $config = new Config($array);
+//        $config->lock();
+//
+//        $this->assertTrue($config->isLocked());
+//        $this->assertTrue($config->get('another')->isLocked());
+//    }
 
     /**
      * @test
@@ -247,71 +226,71 @@ class ConfigTest extends TestCase
     /**
      * @test
      */
-    public function canPushValue()
-    {
-        $config = new Config();
-        $config->push('value1');
-        $config->push('value2');
-
-        $this->assertSame(['value1', 'value2'], $config->toArray());
-    }
-
-    /**
-     * @test
-     */
-    public function canPushValueToArray()
-    {
-        $config = new Config();
-        $config[] = 'value1';
-        $config[] = 'value2';
-
-        $this->assertSame(['value1', 'value2'], $config->toArray());
-    }
+//    public function canPushValue()
+//    {
+//        $config = new Config();
+//        $config->push('value1');
+//        $config->push('value2');
+//
+//        $this->assertSame(['value1', 'value2'], $config->toArray());
+//    }
 
     /**
      * @test
      */
-    public function canSetThroughConstructor()
-    {
-        $config = new Config(['key' => 'value']);
+//    public function canPushValueToArray()
+//    {
+//        $config = new Config();
+//        $config[] = 'value1';
+//        $config[] = 'value2';
+//
+//        $this->assertSame(['value1', 'value2'], $config->toArray());
+//    }
 
-        $this->assertSame('value', $config->get('key'));
-    }
-
-    /**
-     * @test
-     */
-    public function canSetUsingArraySyntax()
-    {
-        $config = new Config();
-        $config['key'] = 'value';
-
-        $this->assertSame('value', $config['key']);
-    }
-
-    /**
-     * @test
-     */
-    public function canSetUsingProperties()
-    {
-        $config = new Config();
-        $config->key = 'value';
-
-        $this->assertSame('value', $config->key);
-    }
+//    /**
+//     * @test
+//     */
+//    public function canSetThroughConstructor()
+//    {
+//        $config = new Config(['key' => 'value']);
+//
+//        $this->assertSame('value', $config->get('key'));
+//    }
 
     /**
      * @test
      */
-    public function canUnsetKey()
-    {
-        $config = new Config();
-        $config['key'] = 'value';
+//    public function canSetUsingArraySyntax()
+//    {
+//        $config = new Config();
+//        $config['key'] = 'value';
+//
+//        $this->assertSame('value', $config['key']);
+//    }
 
-        $this->assertTrue(isset($config['key']));
-        unset($config['key']);
-        $this->assertFalse(isset($config['key']));
-    }
+    /**
+     * @test
+     */
+//    public function canSetUsingProperties()
+//    {
+//        $config = new Config();
+//        $config->key = 'value';
+//
+//        $this->assertSame('value', $config->key);
+//    }
+
+    /**
+     * @test
+     */
+//    public function canUnsetKey()
+//    {
+//        $config = new Config();
+//        $config['key'] = 'value';
+//
+//        $this->assertTrue(isset($config['key']));
+//        unset($config['key']);
+//        $this->assertFalse(isset($config['key']));
+//    }
 
     /**
      * @test
@@ -385,20 +364,20 @@ class ConfigTest extends TestCase
         unset($config['key']);
     }
 
-    /**
-     * @test
-     */
-    public function nameIsAttachedToConfig()
-    {
-        $array = [
-            'key' => 'value',
-            'another' => [
-                'name' => 'qwerty',
-            ],
-        ];
-
-        $config = new Config($array);
-        $this->assertEquals('root', $config->getName());
-        $this->assertEquals('another', $config->get('another')->getName());
-    }
+//    /**
+//     * @test
+//     */
+//    public function nameIsAttachedToConfig()
+//    {
+//        $array = [
+//            'key' => 'value',
+//            'another' => [
+//                'name' => 'qwerty',
+//            ],
+//        ];
+//
+//        $config = new Config($array);
+//        $this->assertEquals('root', $config->getName());
+//        $this->assertEquals('another', $config->get('another')->getName());
+//    }
 }
