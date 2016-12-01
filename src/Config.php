@@ -116,6 +116,14 @@ final class Config implements ConfigContract
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
      * @inheritDoc
      */
     public function has($key): bool
@@ -134,7 +142,7 @@ final class Config implements ConfigContract
     /**
      * @inheritDoc
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return $this->toArray();
     }
@@ -270,14 +278,6 @@ final class Config implements ConfigContract
         }
 
         return $array;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
 }
