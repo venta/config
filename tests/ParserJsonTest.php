@@ -14,7 +14,7 @@ class ParserJsonTest extends TestCase
     {
         $json = json_encode(['key' => 'value']);
         $parser = new Json();
-        $config = $parser->parse($json);
+        $config = $parser->fromString($json);
 
         $this->assertInstanceOf(Config::class, $config);
         $this->assertSame('value', $config->get('key'));
@@ -27,7 +27,7 @@ class ParserJsonTest extends TestCase
     public function throwsExceptionOnInvalidJsonString()
     {
         $parser = new Json();
-        $config = $parser->parse('{"key":"value"');
+        $config = $parser->fromString('{"key":"value"');
     }
 
 }

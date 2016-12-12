@@ -70,7 +70,7 @@ final class Config implements ConfigContract
     /**
      * @inheritDoc
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->get($name);
     }
@@ -86,9 +86,9 @@ final class Config implements ConfigContract
     /**
      * @inheritDoc
      */
-    public function __isset($name)
+    public function __isset(string $key): bool
     {
-        return $this->has($name);
+        return $this->has($key);
     }
 
     /**

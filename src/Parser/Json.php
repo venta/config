@@ -2,21 +2,19 @@
 
 namespace Venta\Config\Parser;
 
-use Venta\Config\Config;
-use Venta\Contracts\Config\Config as ConfigContract;
-use Venta\Contracts\Config\Parser;
+use Venta\Contracts\Config\ConfigParser;
 
 /**
  * Class Json
  *
  * @package Venta\Config\Parser
  */
-class Json implements Parser
+class Json implements ConfigParser
 {
     /**
      * @inheritDoc
      */
-    public function parse(string $configuration): ConfigContract
+    public function fromString(string $configuration): array
     {
         $array = json_decode($configuration, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -26,6 +24,6 @@ class Json implements Parser
             );
         }
 
-        return new Config($array);
+        return $array;
     }
 }
