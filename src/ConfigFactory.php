@@ -12,7 +12,6 @@ use Venta\Contracts\Config\ConfigFactory as ConfigFactoryContract;
  */
 class ConfigFactory implements ConfigFactoryContract
 {
-
     /**
      * @inheritDoc
      */
@@ -20,5 +19,4 @@ class ConfigFactory implements ConfigFactoryContract
     {
         return new Config($data);
     }
-
 }
