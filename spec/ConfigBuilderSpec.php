@@ -4,22 +4,12 @@ namespace spec\Venta\Config;
 
 use PhpSpec\ObjectBehavior;
 use Venta\Config\ConfigBuilder;
-use Venta\Config\ConfigParserCollection;
-use Venta\Config\Parser\Json;
 use Venta\Contracts\Config\Config;
 use Venta\Contracts\Config\ConfigBuilder as ConfigBuilderContract;
-use VirtualFileSystem\FileSystem;
+use Venta\Contracts\Config\ConfigFileParser;
 
 class ConfigBuilderSpec extends ObjectBehavior
 {
-    public function let()
-    {
-        $parsers = new ConfigParserCollection;
-        $parsers->add(Json::class);
-
-        $this->beConstructedWith($parsers);
-    }
-
     public function it_is_initializable()
     {
         $this->shouldHaveType(ConfigBuilder::class);
@@ -54,15 +44,16 @@ class ConfigBuilderSpec extends ObjectBehavior
         ]);
     }
 
-    public function it_can_parse_files()
+    public function it_can_parse_files(ConfigFileParser $parser)
     {
-        $filesystem = new FileSystem();
-        file_put_contents($filesystem->path('/json.json'), json_encode(['file_config' => ['foo', 'bar']]));
+        $parser->supportedExtensions()->willReturn(['json']);
+        $parser->fromFile('json.json')->willReturn(['file_config' => ['foo', 'bar']]);
 
         $this->set('database.username', 'root');
         $this->set('database.password', 'root');
 
-        $this->mergeFile($filesystem->path('/json.json'));
+        $this->addFileParser($parser);
+        $this->mergeFile('json.json');
 
         $config = $this->build();
         $config->toArray()->shouldBe([

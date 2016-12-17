@@ -6,7 +6,7 @@ use Venta\Contracts\Config\Config;
 use Venta\Contracts\Config\ConfigBuilder as ConfigBuilderContract;
 use Venta\Contracts\Config\ConfigFactory as ConfigFactoryContract;
 use Venta\Contracts\Config\ConfigFileParser;
-use Venta\Contracts\Config\ConfigParserCollection;
+use Venta\Contracts\Config\ConfigParser;
 
 /**
  * Class ConfigBuilder
@@ -28,20 +28,26 @@ class ConfigBuilder implements ConfigBuilderContract
     private $items = [];
 
     /**
-     * @var ConfigFileParser[]
+     * @var ConfigFileParser[]|ConfigParser[]
      */
-    private $parsersInstances = [];
+    private $parsers = [];
 
     /**
      * Construct function.
      *
-     * @param ConfigParserCollection     $parserCollection
      * @param null|ConfigFactoryContract $configFactory
      */
-    public function __construct(ConfigParserCollection $parserCollection, ConfigFactoryContract $configFactory = null)
+    public function __construct(ConfigFactoryContract $configFactory = null)
     {
         $this->configFactory = $configFactory ?? new ConfigFactory();
-        $this->parsersInstances = $this->createParserInstances($parserCollection);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addFileParser(ConfigFileParser $parser)
+    {
+        $this->parsers[] = $parser;
     }
 
     /**
@@ -74,8 +80,8 @@ class ConfigBuilder implements ConfigBuilderContract
         // TODO: extension of file can be empty. Exception in that case, or just ignore it?
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
-        foreach ($this->parsersInstances as $parser) {
-            if (in_array($extension, $parser->supportedExtensions())) {
+        foreach ($this->parsers as $parser) {
+            if (($parser instanceof ConfigFileParser) && in_array($extension, $parser->supportedExtensions())) {
                 $this->merge($parser->fromFile($filename));
                 break;
             }
@@ -85,8 +91,8 @@ class ConfigBuilder implements ConfigBuilderContract
     /**
      * Appends a value to a config array.
      *
-     * @param $path
-     * @param $value
+     * @param string $path
+     * @param mixed  $value
      * @return void
      */
     public function push(string $path, $value)
@@ -130,32 +136,5 @@ class ConfigBuilder implements ConfigBuilderContract
         }
 
         $array[array_shift($keys)] = $value;
-    }
-
-    /**
-     * Returns array of created parser instances out of passed parsers collection.
-     * Each collection item is checked against interface.
-     *
-     * @param  ConfigParserCollection $parserCollection
-     * @return array
-     */
-    protected function createParserInstances(ConfigParserCollection $parserCollection): array
-    {
-        return array_map(function ($parser) {
-            return $this->initializeParser($parser);
-        }, array_filter($parserCollection->all(), function ($parser) {
-            return is_subclass_of($parser, ConfigFileParser::class);
-        }));
-    }
-
-    /**
-     * Creates a new parser instance.
-     *
-     * @param string $className
-     * @return ConfigFileParser
-     */
-    protected function initializeParser(string $className): ConfigFileParser
-    {
-        return new $className;
     }
 }
