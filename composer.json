@@ -1,10 +1,8 @@
 {
     "name": "venta/config",
     "description": "The Venta Config package.",
-    "keywords": [
-        "venta",
-        "config"
-    ],
+    "keywords": ["venta", "config"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Venta Core Team",
