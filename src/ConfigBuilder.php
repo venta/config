@@ -2,11 +2,10 @@
 
 namespace Venta\Config;
 
-use Venta\Contracts\Config\Config;
+use Venta\Contracts\Config\Config as ConfigContract;
 use Venta\Contracts\Config\ConfigBuilder as ConfigBuilderContract;
 use Venta\Contracts\Config\ConfigFactory as ConfigFactoryContract;
 use Venta\Contracts\Config\ConfigFileParser;
-use Venta\Contracts\Config\ConfigParser;
 
 /**
  * Class ConfigBuilder
@@ -16,7 +15,7 @@ use Venta\Contracts\Config\ConfigParser;
 class ConfigBuilder implements ConfigBuilderContract
 {
     /**
-     * @var ConfigFactory
+     * @var ConfigFactoryContract
      */
     private $configFactory;
 
@@ -28,7 +27,7 @@ class ConfigBuilder implements ConfigBuilderContract
     private $items = [];
 
     /**
-     * @var ConfigFileParser[]|ConfigParser[]
+     * @var ConfigFileParser[]
      */
     private $parsers = [];
 
@@ -53,7 +52,7 @@ class ConfigBuilder implements ConfigBuilderContract
     /**
      * @inheritDoc
      */
-    public function build(): Config
+    public function build(): ConfigContract
     {
         return $this->configFactory->create($this->items);
     }

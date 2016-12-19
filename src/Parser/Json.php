@@ -32,8 +32,8 @@ class Json implements ConfigFileParser
      */
     public function fromFile(string $filename): array
     {
-        if ($this->filesystem->has($filename)) {
-            return $this->fromString($this->filesystem->read($filename));
+        if ($this->filesystem->has($filename) && $contents = $this->filesystem->read($filename)) {
+            return $this->fromString($contents);
         }
 
         throw new \RuntimeException(sprintf('Unable to parse configuration file: "%s".', $filename));

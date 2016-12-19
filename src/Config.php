@@ -70,13 +70,13 @@ final class Config implements ConfigContract
      */
     public function getIterator()
     {
-        return $this->items;
+        return new ArrayIterator($this->items);
     }
 
     /**
      * @inheritDoc
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return $this->items;
     }
