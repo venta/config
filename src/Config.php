@@ -6,6 +6,7 @@ use ArrayIterator;
 use RuntimeException;
 use Traversable;
 use Venta\Contracts\Config\Config as ConfigContract;
+use Venta\Routing\ProcessingRouteCollection;
 
 /**
  * Class Config
@@ -32,37 +33,30 @@ final class Config implements ConfigContract
     }
 
     /**
-     * Returns config value for provided key.
-     *
-     * @param string $key
-     * @return mixed
-     */
-    public function __get(string $key)
-    {
-        if ($this->__isset($key)) {
-            return is_array($this->items[$key]) ? new self($this->items[$key]) : $this->items[$key];
-        }
-
-        return null;
-    }
-
-    /**
-     * Checks if config contains value for provided key.
-     *
-     * @param $key
-     * @return bool
-     */
-    public function __isset(string $key): bool
-    {
-        return array_key_exists($key, $this->items);
-    }
-
-    /**
      * @inheritDoc
      */
     public function count()
     {
         return count($this->items);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get(string $key, $default = null)
+    {
+        $keys = explode('.', $key);
+        $items = $this->items;
+
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $items)) {
+                $items = $items[$key];
+            } else {
+                return $default;
+            }
+        }
+
+        return $items;
     }
 
     /**
@@ -76,15 +70,32 @@ final class Config implements ConfigContract
     /**
      * @inheritDoc
      */
+    public function has(string $key): bool
+    {
+        $keys = explode('.', $key);
+        $items = $this->items;
+
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $items)) {
+                $items = $items[$key];
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function jsonSerialize()
     {
         return $this->items;
     }
 
     /**
-     * Returns array representation of config.
-     *
-     * @return array
+     * @inheritDoc
      */
     public function toArray(): array
     {
