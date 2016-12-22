@@ -3,24 +3,22 @@
 namespace Venta\Config;
 
 use ArrayIterator;
-use RuntimeException;
-use Traversable;
+use IteratorAggregate;
 use Venta\Contracts\Config\Config as ConfigContract;
-use Venta\Routing\ProcessingRouteCollection;
 
 /**
  * Class Config
  *
  * @package Venta\Config
  */
-final class Config implements ConfigContract
+class Config implements IteratorAggregate, ConfigContract
 {
     /**
      * Array of configuration items.
      *
      * @var array
      */
-    private $items = [];
+    protected $items = [];
 
     /**
      * Construct function.
@@ -30,6 +28,14 @@ final class Config implements ConfigContract
     public function __construct(array $items)
     {
         $this->items = $items;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function all(): array
+    {
+        return $this->items;
     }
 
     /**
@@ -90,14 +96,6 @@ final class Config implements ConfigContract
      * @inheritDoc
      */
     public function jsonSerialize()
-    {
-        return $this->items;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function toArray(): array
     {
         return $this->items;
     }
