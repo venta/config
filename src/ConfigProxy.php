@@ -2,6 +2,7 @@
 
 namespace Venta\Config;
 
+use IteratorAggregate;
 use Venta\Contracts\Config\Config as ConfigContract;
 use Venta\Contracts\Config\MutableConfig as MutableConfigContract;
 
@@ -10,7 +11,7 @@ use Venta\Contracts\Config\MutableConfig as MutableConfigContract;
  *
  * @package Venta\Config
  */
-class ConfigProxy implements ConfigContract
+class ConfigProxy implements IteratorAggregate, ConfigContract
 {
 
     /**
@@ -66,6 +67,14 @@ class ConfigProxy implements ConfigContract
     function jsonSerialize()
     {
         return $this->config->jsonSerialize();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIterator()
+    {
+        return $this->config instanceof IteratorAggregate ? $this->config->getIterator() : $this->config;
     }
 
 }

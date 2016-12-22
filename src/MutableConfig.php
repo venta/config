@@ -17,7 +17,7 @@ class MutableConfig extends Config implements MutableConfigContract
      */
     public function merge(array $config)
     {
-        $this->items = array_merge_recursive($this->items, $config);
+        $this->items = array_replace_recursive($this->items, $config);
     }
 
     /**
