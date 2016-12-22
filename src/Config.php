@@ -41,14 +41,6 @@ class Config implements IteratorAggregate, ConfigContract
     /**
      * @inheritDoc
      */
-    public function count()
-    {
-        return count($this->items);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function get(string $key, $default = null)
     {
         $keys = explode('.', $key);

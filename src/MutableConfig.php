@@ -11,6 +11,15 @@ use Venta\Contracts\Config\MutableConfig as MutableConfigContract;
  */
 class MutableConfig extends Config implements MutableConfigContract
 {
+    /**
+     * MutableConfig constructor.
+     *
+     * @param array $items
+     */
+    public function __construct(array $items = [])
+    {
+        parent::__construct($items);
+    }
 
     /**
      * @inheritdoc
@@ -29,13 +38,13 @@ class MutableConfig extends Config implements MutableConfigContract
         $array = &$this->items;
 
         while (count($keys) > 0) {
-            $activeKey = array_shift($keys);
+            $key = array_shift($keys);
 
-            if (!isset($array[$activeKey]) || !is_array($array[$activeKey])) {
-                $array[$activeKey] = [$array[$activeKey]];
+            if (!isset($array[$key]) || !is_array($array[$key])) {
+                $array[$key] = [];
             }
 
-            $array = &$array[$activeKey];
+            $array = &$array[$key];
         }
 
         array_push($array, $value);
@@ -50,13 +59,13 @@ class MutableConfig extends Config implements MutableConfigContract
         $array = &$this->items;
 
         while (count($keys) > 1) {
-            $activeKey = array_shift($keys);
+            $key = array_shift($keys);
 
-            if (!isset($array[$activeKey]) || !is_array($array[$activeKey])) {
-                $array[$activeKey] = [];
+            if (!isset($array[$key]) || !is_array($array[$key])) {
+                $array[$key] = [];
             }
 
-            $array = &$array[$activeKey];
+            $array = &$array[$key];
         }
 
         $array[array_shift($keys)] = $value;

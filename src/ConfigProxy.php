@@ -40,17 +40,17 @@ class ConfigProxy implements IteratorAggregate, ConfigContract
     /**
      * @inheritDoc
      */
-    public function count()
+    public function get(string $key, $default = null)
     {
-        return $this->config->count();
+        return $this->config->get($key, $default);
     }
 
     /**
      * @inheritDoc
      */
-    public function get(string $key, $default = null)
+    public function getIterator()
     {
-        return $this->config->get($key, $default);
+        return $this->config instanceof IteratorAggregate ? $this->config->getIterator() : $this->config;
     }
 
     /**
@@ -67,14 +67,6 @@ class ConfigProxy implements IteratorAggregate, ConfigContract
     function jsonSerialize()
     {
         return $this->config->jsonSerialize();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getIterator()
-    {
-        return $this->config instanceof IteratorAggregate ? $this->config->getIterator() : $this->config;
     }
 
 }
