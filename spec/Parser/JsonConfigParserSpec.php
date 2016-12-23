@@ -2,15 +2,15 @@
 
 namespace spec\Venta\Config\Parser;
 
-use League\Flysystem\FilesystemInterface;
 use PhpSpec\ObjectBehavior;
 use RuntimeException;
 use Venta\Contracts\Config\ConfigFileParser;
 use Venta\Contracts\Config\ConfigStringParser;
+use Venta\Contracts\Filesystem\Filesystem;
 
 class JsonConfigParserSpec extends ObjectBehavior
 {
-    function let(FilesystemInterface $filesystem)
+    function let(Filesystem $filesystem)
     {
         $this->beConstructedWith($filesystem);
     }
@@ -21,10 +21,9 @@ class JsonConfigParserSpec extends ObjectBehavior
         $this->shouldImplement(ConfigStringParser::class);
     }
 
-    function it_parses_json_files(FilesystemInterface $filesystem)
+    function it_parses_json_files(Filesystem $filesystem)
     {
         $config = ['foo' => 'bar', 'key' => 'value'];
-        $filesystem->has('json.json')->willReturn(true);
         $filesystem->read('json.json')->willReturn(json_encode($config));
 
         $this->supportedExtensions()->shouldContain('json');

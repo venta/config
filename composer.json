@@ -18,8 +18,7 @@
     },
     "require": {
         "php": "^7.0",
-        "venta/contracts": "dev-master",
-        "league/flysystem": "^1.0"
+        "venta/contracts": "dev-master"
     },
     "require-dev": {
         "phpspec/phpspec": "^3.1",

@@ -2,9 +2,9 @@
 
 namespace Venta\Config\Parser;
 
-use League\Flysystem\FilesystemInterface;
 use Venta\Contracts\Config\ConfigFileParser;
 use Venta\Contracts\Config\ConfigStringParser;
+use Venta\Contracts\Filesystem\Filesystem;
 
 /**
  * Class JsonConfigParser
@@ -14,16 +14,16 @@ use Venta\Contracts\Config\ConfigStringParser;
 class JsonConfigParser implements ConfigFileParser, ConfigStringParser
 {
     /**
-     * @var FilesystemInterface
+     * @var Filesystem
      */
     private $filesystem;
 
     /**
      * Construct function.
      *
-     * @param FilesystemInterface $filesystem
+     * @param Filesystem $filesystem
      */
-    public function __construct(FilesystemInterface $filesystem)
+    public function __construct(Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
     }
@@ -33,11 +33,7 @@ class JsonConfigParser implements ConfigFileParser, ConfigStringParser
      */
     public function parseFile(string $filename): array
     {
-        if ($this->filesystem->has($filename) && $contents = $this->filesystem->read($filename)) {
-            return $this->parseString($contents);
-        }
-
-        throw new \RuntimeException(sprintf('Unable to parse configuration file: "%s".', $filename));
+        return $this->parseString($this->filesystem->read($filename));
     }
 
     /**
